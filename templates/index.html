@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Summarizer</title>
+</head>
+<body>
+    <h2>Azure OpenAI Text Summarizer</h2>
+    <textarea id="inputText" rows="6" cols="50" placeholder="Enter text to summarize..."></textarea><br><br>
+    <button onclick="summarize()">Summarize</button>
+    <div id="result"></div>
+
+    <script>
+        async function summarize() {
+            const text = document.getElementById("inputText").value;
+            const res = await fetch("/summarize", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({text: text})
+            });
+            const data = await res.json();
+            document.getElementById("result").innerText = "Summary: " + data.summary;
+        }
+    </script>
+</body>
+</html>
